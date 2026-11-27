@@ -237,13 +237,13 @@ function wrapWords(words, maxW, o) { const lines = [[]]; let w = 0; const sp = m
 function recordPage(s, t, X, Y, w, h, o = {}) {
   paperCard(X, Y, w, h, t);
   // line numbers + margin rules
-  const LH = o.lh || 50, n = Math.floor((h - 150) / LH);
+  const len = (s.text || '').length, FS = o.fs || (len < 220 ? 46 : len < 360 ? 40 : 34), LH = o.lh || Math.round(FS * 1.6), n = Math.floor((h - 150) / LH);
   for (let i = 0; i < n; i++) txt(String(i + 1), X + 50, Y + 140 + i * LH, { s: 18, f: 'Mono', w: 400, c: '#9b8c74', al: 'right' });
   hair(X + 70, Y + 20, X + 70, Y + h - 20, '#c98478', 1.5); hair(X + 76, Y + 20, X + 76, Y + h - 20, '#c98478', 1.5); hair(X + w - 50, Y + 20, X + w - 50, Y + h - 20, '#c9b9a0', 1);
   txt(s.head || '', X + 100, Y + 64, { s: 20, f: 'Mono', w: 600, ls: 2, c: '#5a4b3a', id: 'rh' }); if (s.head2) txt(s.head2, X + 100, Y + 92, { s: 18, f: 'Mono', w: 400, ls: 1, c: '#7a6a55', id: 'rh2' });
   hair(X + 100, Y + 108, X + w - 70, Y + 108, '#b9a888', 1);
   // body
-  const fo = { s: o.fs || 31, f: 'Mono', w: 400 }, words = s.text.split(/\s+/), lines = wrapWords(words, w - 200, fo), total = words.length;
+  const fo = { s: FS, f: 'Mono', w: 400 }, words = s.text.split(/\s+/), lines = wrapWords(words, w - 200, fo), total = words.length;
   const a0 = AT(s, s.at ?? .25), a1 = AT(s, s.until ?? -.92), shown = Math.floor(total * seg(t, a0, a1)); let k = 0;
   lines.forEach((ln, li) => { let cx = X + 100; const yy = Y + 140 + li * LH; ln.forEach(wd => { const hl = wd.includes('*'), clean = wd.replace(/[*_]/g, ''), m = measure(clean, fo);
       if (k < shown) { txt(clean, cx, yy, { ...fo, c: hl ? '#7a1f12' : INK, w: hl ? 600 : 400, id: 'rb' + k });
@@ -360,9 +360,9 @@ function sScale(t, s) {
   for (const side of [-1, 1]) { x.save(); x.translate(side * 600, 0); x.rotate(-tilt); hair(0, 0, -170, 280, C.dim, 2.5); hair(0, 0, 170, 280, C.dim, 2.5);
     x.fillStyle = '#3a3027'; x.beginPath(); x.ellipse(0, 290, 210, 30, 0, 0, Math.PI); x.fill(); x.strokeStyle = C.dim; x.lineWidth = 2; x.beginPath(); x.ellipse(0, 290, 210, 30, 0, 0, 7); x.stroke();
     txt(side < 0 ? 'THE PLAINTIFFS' : 'THE DEFENDANT', 0, 380, { s: 24, f: 'Mono', w: 600, ls: 3, c: side < 0 ? PL_Y : DF_B, al: 'center', id: 'sp' + side });
-    let stack = 0; P.filter(p => p.side === side).forEach((p, i) => { const a0 = AT(s, p.at), k = seg(t, a0, a0 + .45); if (k <= 0) return; const yy = 285 - stack - 50 - (1 - eback(k)) * 260;
-      x.save(); x.globalAlpha = clamp(k * 3); x.fillStyle = side < 0 ? PL_Y : DF_B; rr(-200, yy - 46, 400, 92, 8); x.fill();
-      txt(p.big, 0, yy + 4, { s: p.big.length > 9 ? 36 : 46, f: 'Mono', w: 600, c: INK, al: 'center', id: 'sb' + side + i }); txt(p.small || '', 0, yy + 34, { s: 15, f: 'Mono', w: 600, ls: 1, c: INK, al: 'center' }); x.restore(); stack += 100; });
+    let stack = 0; P.filter(p => p.side === side).forEach((p, i) => { const a0 = AT(s, p.at), k = seg(t, a0, a0 + .45); if (k <= 0) return; const yy = 285 - stack - 40 - (1 - eback(k)) * 260;
+      x.save(); x.globalAlpha = clamp(k * 3); x.fillStyle = side < 0 ? PL_Y : DF_B; rr(-200, yy - 36, 400, 72, 8); x.fill();
+      txt(p.big, 0, yy + 2, { s: p.big.length > 9 ? 32 : 40, f: 'Mono', w: 600, c: INK, al: 'center', id: 'sb' + side + i }); txt(p.small || '', 0, yy + 26, { s: 15, f: 'Mono', w: 600, ls: 1, c: INK, al: 'center' }); x.restore(); stack += 78; });
     x.restore(); }
   x.restore();
   if (s.title) txt(s.title, cx, 120, { s: 28, f: 'Mono', w: 600, ls: 3, c: C.dim, al: 'center', id: 'stl' });
