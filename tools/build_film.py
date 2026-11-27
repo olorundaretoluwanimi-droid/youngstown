@@ -8,7 +8,8 @@ import json, os, copy
 D = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 L = json.load(open(os.path.join(D, 'audio/lines.json'), encoding='utf-8'))
 DUR = json.load(open(os.environ.get('DURFILE') or os.path.join(D, 'audio/vo/dur.json')))
-GAP, QGAP, OPEN, TITLE, END = 0.55, 1.4, 3.6, 8.0, 16.0
+GAP, QGAP, OPEN, TITLE, END = 0.55, 1.4, 1.0, 8.0, 16.0
+PRECARD, XF = 1.1, .7   # extra quiet before each case card; the card dissolves into the part's first picture
 PART = {'hook': 0, 'p1': 1, 'p2': 2, 'p3': 3, 'p4': 4, 'p5': 5, 'p6': 6, 'p7': 7, 'p8': 8, 'p9': 9}
 CARD = {'p1': ('Opening Statement', 'what Youngstown was'), 'p2': ('Exhibit A', 'what the town built'), 'p3': ('Exhibit B', 'the merger'),
         'p4': ('The Witnesses', 'a town tries to buy its mill'), 'p5': ('Exhibit C', 'the promise'), 'p6': ('The Trial', 'Youngstown, March 1980'),
@@ -39,7 +40,7 @@ STATEMENT = ('Youngstown Sheet and Tube Company, a subsidiary of Lykes Corporati
 TOWNS_ALL = [['Warren', 0], ['Niles', 0], ['McDonald', 0], ['Girard', 0], ['Youngstown', 0], ['Campbell', 0], ['Struthers', 0], ['Lowellville', 0]]
 S = {
  # ── the charge ──
- 'h01': hero('campbell_night', CAMP, era='c', fadeIn=1.6, items=[I('stamp', text='19 SEP 1977', x=1520, y=180, s=60, at=-.25)]),
+ 'h01': hero('campbell_night', CAMP, era='c', fadeIn=1.2, items=[I('stamp', text='19 SEP 1977', x=1520, y=180, s=60, at=-.25)]),
  'h02': doc('YOUNGSTOWN SHEET AND TUBE COMPANY · STATEMENT', STATEMENT, head2='READ TO THE UNION PRESIDENTS · MONDAY, 19 SEPTEMBER 1977', img='yst_sign',
             cite='TEXT ' + LYND, until=-.98, stamp='5,000', stampAt=-.8),
  'h03': cont(),
@@ -222,7 +223,7 @@ WIT = {l['id']: l.get('witness') for l in L}
 scenes, subs, voice, t = [], [], [], 0.0
 def add(sc, t0): sc = dict(sc); sc['t0'] = round(t0, 3); scenes.append(sc); return sc
 def rel(v, vt, t0, d): return round(vt - t0 + (v if v >= 0 else -v * d), 3)
-add(dict(type='black', part=0), 0.0); t = OPEN
+t = OPEN; after_card = False
 prev_ch = None
 for l in L:
     lid, ch = l['id'], l['chapter']; part = PART[ch]
@@ -231,9 +232,9 @@ for l in L:
         add(sc, t); t += w['hold'] + .9; prev_ch = ch; continue
     d = DUR[lid]
     if ch != prev_ch and ch in CARD:   # the case caption card carries this part's first line
-        ti, sub = CARD[ch]; t += .3; add(dict(type='case', n=part, title=ti, sub=sub, part=part, line=lid), t)
+        ti, sub = CARD[ch]; t += PRECARD; add(dict(type='case', n=part, title=ti, sub=sub, part=part, line=lid), t)
         vt = t + 2.3; voice.append(dict(id=lid, t=round(vt, 3), d=d)); subs.append(dict(t0=round(vt, 3), t1=round(vt + d, 3), text=l['subs'][0]))
-        t = vt + d + 1.2; prev_ch = ch; continue
+        t = vt + d + 1.2; prev_ch = ch; after_card = True; continue
     prev_ch = ch; vt = t
     sh = S.get(lid)
     if sh is None: raise SystemExit(f'no shot for {lid}')
@@ -248,7 +249,8 @@ for l in L:
     else:
         sc = copy.deepcopy(sh); sc['line'] = lid; sc['vd'] = d; sc['part'] = part
         if 'from_' in sc: sc['from'] = sc.pop('from_')
-        add(sc, vt - .25)
+        if after_card: sc['xf'] = XF; after_card = False
+        add(sc, max(0.0, vt - .25))
     voice.append(dict(id=lid, t=round(vt, 3), d=d))
     if any(l['subs']):
         tot = sum(len(s) for s in l['subs']); a = vt
@@ -256,7 +258,8 @@ for l in L:
             b = a + d * len(s) / tot; subs.append(dict(t0=round(a, 3), t1=round(b, 3), text=s)); a = b
     t = vt + d + (QGAP if lid in QUIET else GAP)
     if lid == 'h08':   # the Mill Town title sequence after the cold open
-        add(dict(type='title', part=0), t); t += TITLE
+        t = round(t * 30) / 30; add(dict(type='title', part=0), t); t += TITLE
+scenes[0]['t0'] = 0.0   # the film opens on the first picture (fading up from black), no black lead-in
 end = add(dict(type='end', part=9), t + .2); DURT = round(t + .2 + END, 3)
 for a, b in zip(scenes, scenes[1:] + [None]): a['t1'] = b['t0'] if b else DURT
 CREDITS = ['What Happened to Youngstown? The Day the Steel Mills Closed',

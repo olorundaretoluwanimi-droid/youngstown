@@ -50,7 +50,7 @@ spans = [('hook', 0.0, title['t0'])] + [(f"p{c['n']}", c['t0'], (cards[i + 1]['t
 for name, a, b in spans:
     m0 = a + 2.3
     if name == 'hook':
-        m0 = 3.2
+        m0 = 1.0
         E(m0, 'tuba', 'C2', title['t0'] - m0 - .3, .35, 0, .16, attack=2.0)
         E(m0, 'cellos', 'C3', title['t0'] - m0 - .3, .3, -.2, .1, attack=3.0)
         for t, i in bars_in(m0 + BAR, title['t0'] - 2, BAR * 2):
@@ -151,8 +151,18 @@ if len(mus) < N: mus = np.pad(mus, ((0, N - len(mus)), (0, 0)))
 mus = S.room(mus, size=.75, mix=.28)
 # the cold open stops dead at the title cut; each part's music starts with its narrator line on the card
 i0 = int((title['t0'] - .02) * SR); mus[i0:int((title['t0'] + 8.0) * SR)] = 0
+# the part transitions: the music breathes out over ~2.5 s before each case card (a gentle cosine fade), the card sits on room tone,
+# a low string pedal swells under the knock, and the next part's music fades in under the narrator
 for c in cards:
-    a_, b_ = int((c['t0'] - .4) * SR), int((c['t0'] + 2.2) * SR); n = b_ - a_; env = np.zeros(n); k = int(.4 * SR); env[:k] = np.linspace(1, 0, k); mus[a_:b_] *= env[:, None]
+    f0, f1, z1, u1 = c['t0'] - 2.6, c['t0'] - .15, c['t0'] + 2.3, c['t0'] + 3.8
+    i0, i1, i2, i3 = (int(v * SR) for v in (f0, f1, z1, u1))
+    mus[i0:i1] *= (0.5 + 0.5 * np.cos(np.linspace(0, np.pi, i1 - i0)))[:, None]; mus[i1:i2] = 0
+    mus[i2:i3] *= (0.5 - 0.5 * np.cos(np.linspace(0, np.pi, i3 - i2)))[:, None]
+ped = [dict(t=c['t0'] + .05, inst=i_, pitch=p_, dur=3.4, vel=.32, pan=pn, gain=g_, attack=1.1)
+       for c in cards for i_, p_, pn, g_ in (('cellos', 'C2', -.15, .12), ('violas', 'G2', .15, .06))]
+pedal = S.render(ped, dur=DUR, master=False)[:N]
+if len(pedal) < N: pedal = np.pad(pedal, ((0, N - len(pedal)), (0, 0)))
+mus += S.room(pedal, size=.75, mix=.3)
 
 fx = np.zeros((N, 2), np.float32)
 def knock():   # a low wooden knock: a body thump plus a short wood click and a hollow resonance

@@ -52,7 +52,9 @@ function sDoc(t, s) {   // a page from the court record, the hot line, or a lett
 
 // the case caption: the start of every part
 function sCase(t, s) {
-  const l = t - s.t0; ground();
+  const l = t - s.t0; ground(); x.save(); x.globalAlpha *= eo(seg(l, 0, .5)); sCaseBody(t, s, l); x.restore();
+}
+function sCaseBody(t, s, l) {
   // faint paper texture panel
   x.save(); x.globalAlpha = .06; x.fillStyle = GRAIN[Math.floor(t * 30) % 6]; x.fillRect(0, 0, W, H); x.restore();
   const X = 250, Y = 150, cw = 1420;
@@ -247,7 +249,7 @@ function sJury(t, s) {
 // the black opening: a distant whistle on black
 function sBlack(t, s) { ground(); }
 // title placeholder (the Mill Town title sequence is spliced in here at the finish)
-function sTitle(t, s) { ground(); txt('MILL TOWN', W / 2, H / 2, { s: 60, w: 700, c: C.faint, al: 'center' }); }
+function sTitle(t, s) { ground(); }   // the title clip is spliced over this at the finish
 // end: credits over the skyline
 function sEnd(t, s) {
   const l = t - s.t0; cover(IM['skyline'], 0, 140, W, 727, { z: lerp(1, 1.04, LK(t, s)), grade: 'm' }); shade(0, 0, W, H, lerp(.35, .9, seg(l, 3, 5)));
@@ -279,7 +281,7 @@ function render(t) {
   else drawScene(s, t);
   caseMark(s);
   // fade to the ground into each case card (the knock lands on the card)
-  const nx = FILM.scenes[i + 1]; if (nx && (nx.type === 'case' || nx.type === 'title') && t > s.t1 - .45) { const k = seg(t, s.t1 - .45, s.t1); x.save(); x.globalAlpha = k; x.fillStyle = C.bg; x.fillRect(0, 0, W, H); x.restore(); }
+  const nx = FILM.scenes[i + 1]; if (nx && nx.type === 'case' && t > s.t1 - 1.1) { const k = eio(seg(t, s.t1 - 1.1, s.t1)); x.save(); x.globalAlpha = k; x.fillStyle = C.bg; x.fillRect(0, 0, W, H); x.restore(); }
   if (s.type === 'black' || s.type === 'hero' && s.fadeIn) { const k = 1 - seg(t, s.t0, s.t0 + (s.fadeIn || 1.2)); if (s.type !== 'black' && k > 0) { x.save(); x.globalAlpha = k; x.fillStyle = '#000'; x.fillRect(0, 0, W, H); x.restore(); } }
   subs(t);
 }
