@@ -1,0 +1,42 @@
+# Render this week's Mill Town title sequence (8 s, picture only) on GitHub — the channel template in title/ (copied from
+# klaude/title-sequence; only the town and label change). The finish splices it in at the title's frame:
+#   gh workflow run finish.yml -f run_id=<render run> -f patches="<title run>@<round(title t0 * 30)>"
+name: Render title
+
+on:
+  workflow_dispatch:
+    inputs:
+      town: { description: 'Town line', default: 'Youngstown, Ohio' }
+      label: { description: 'Top-left label', default: 'STEEL · 1900–1980' }
+
+env:
+  LIB: ${{ github.workspace }}/lemo-opuscar
+  LIB_REF: 8ca0dd8
+  LEMO_ANGLE: swiftshader
+
+jobs:
+  title:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: film }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Library + headless browser
+        run: |
+          git clone https://github.com/lemomo-ai/lemo-opuscar "$LIB"
+          git -C "$LIB" checkout "$LIB_REF" || echo "pinned commit not found, using the default branch"
+          cd "$LIB" && (npm ci --no-audit --no-fund || npm install --no-audit --no-fund)
+          node node_modules/playwright-core/cli.js install --with-deps chromium-headless-shell
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Render the title
+        run: |
+          Q=$(python3 -c "import sys,urllib.parse;print(urllib.parse.urlencode({'town':sys.argv[1],'label':sys.argv[2]}))" "${{ inputs.town }}" "${{ inputs.label }}")
+          cd "$GITHUB_WORKSPACE/film/title" && node "$LIB/core/render/video.mjs" . --fps 30 --q "$Q" --out "$GITHUB_WORKSPACE/t.mp4"
+          ffmpeg -v error -y -i "$GITHUB_WORKSPACE/t.mp4" -an -c:v copy -t 8 "$GITHUB_WORKSPACE/youngstown-video.mp4"
+          ffprobe -v error -count_packets -select_streams v -show_entries stream=nb_read_packets,width,height -of compact "$GITHUB_WORKSPACE/youngstown-video.mp4" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: youngstown-video
+          path: youngstown-video.mp4
+          retention-days: 7

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>What Happened to Youngstown?</title>
+<style>
+@font-face{font-family:Sans;src:url(fonts/sans400.woff2) format('woff2');font-weight:400}
+@font-face{font-family:Sans;src:url(fonts/sans500.woff2) format('woff2');font-weight:500}
+@font-face{font-family:Sans;src:url(fonts/sans700.woff2) format('woff2');font-weight:700}
+@font-face{font-family:Mono;src:url(fonts/mono400.woff2) format('woff2');font-weight:400}
+@font-face{font-family:Mono;src:url(fonts/mono600.woff2) format('woff2');font-weight:600}
+@font-face{font-family:SerifI;src:url(fonts/serifi.woff2) format('woff2');font-style:italic;font-weight:400}
+html,body{margin:0;background:#15110D;overflow:hidden}canvas{display:block}
+</style></head><body><canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// "What Happened to Youngstown? The Day the Steel Mills Closed" — the series' dark warm look (ground #15110D, IBM Plex, Source Serif italic
+// quotes, red only for dates and numbers, 47 px captions, mono source tags) with this episode's motion graphics: a court case. render(t) is deterministic.
+const W = 1920, H = 1080, cv = document.getElementById('c'), x = cv.getContext('2d');
+const C = { bg: '#15110D', panel: '#221C16', line: '#3B3229', paper: '#EADFC6', ink: '#2A2118', ink2: '#5a4b3a', red: '#E5512F', cream: '#F1E7D3',
+            dim: '#AE9F86', faint: '#62564A', base: '#0e0a07', edge: '#C98A3A', kc: '#F2B61C' };
+let FILM = { scenes: [], subs: [], dur: 10 }, MAP = null, SIZES = {}, CLIPN = {}, SPECK, GRAIN = [], ERA = 'm', ERAN = 10, NOW = 0;
+const IM = {}, CLIP = {};
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v)), seg = (t, a, b) => clamp((t - a) / (b - a)), lerp = (a, b, k) => a + (b - a) * k;
+const eo = k => 1 - Math.pow(1 - k, 3), ei = k => k * k * k, eio = k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const eback = k => { const c = 1.6; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+function rnd(s) { return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function load(src) { return new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => { console.warn('missing', src); r(null); }; i.src = src; }); }
+const AT = (s, v) => v == null ? s.t0 + .4 : v < 0 ? s.t0 + (-v) * (s.vd || (s.t1 - s.t0)) : s.t0 + v;   // seconds after t0, or (negative) a fraction of the line
+const LK = (t, s) => seg(t, s.t0, s.t1);
+function mk(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+function makeSpeck() { const c = mk(512, 512), g = c.getContext('2d'), R = rnd(23); for (let i = 0; i < 2600; i++) { g.fillStyle = `rgba(0,0,0,${R() * .9})`; g.beginPath(); g.arc(R() * 512, R() * 512, R() * 2.2, 0, 7); g.fill(); } return c; }
+function makeGrain() { for (let k = 0; k < 6; k++) { const c = mk(256, 256), g = c.getContext('2d'), d = g.createImageData(256, 256), R = rnd(100 + k);
+  for (let i = 0; i < d.data.length; i += 4) { const n = 128 + (R() + R() + R() + R() - 2) * 70; d.data[i] = d.data[i + 1] = d.data[i + 2] = n; d.data[i + 3] = 255; } g.putImageData(d, 0, 0); GRAIN.push(g.createPattern(c, 'repeat')); } }
+
+// ── type ─────────────────────────────────────────────────────────────────────────────────────────────────
+function fontOf(o, size) {
+  const fam = o.f === 'Mono' ? 'Mono' : 'Sans', s = size || o.s || 30;
+  if (o.it) return `italic 400 ${s}px SerifI`;
+  let w = o.w || 400; w = fam === 'Mono' ? (w >= 500 ? 600 : 400) : (w >= 650 ? 700 : w >= 450 ? 500 : 400);
+  return `${w} ${s}px ${fam}`;
+}
+let REC = null;
+function txt(s, X, Y, o = {}) {
+  x.save(); x.globalAlpha *= o.a ?? 1; x.font = fontOf(o); x.fillStyle = o.c || C.cream;
+  x.textAlign = o.al || 'left'; x.textBaseline = o.bl || 'alphabetic'; if (o.ls) x.letterSpacing = o.ls + 'px';
+  if (o.sh) { x.shadowColor = o.sh; x.shadowBlur = o.sb ?? 10; }
+  x.fillText(s, X, Y); const m = x.measureText(s).width; x.restore();
+  if (o.id && REC && (o.a ?? 1) > .5) { const x0 = o.al === 'center' ? X - m / 2 : o.al === 'right' ? X - m : X; REC.push({ id: o.id, text: s, x0, y0: Y - (o.s || 30), x1: x0 + m, y1: Y }); }
+  return m;
+}
+function measure(s, o) { x.save(); x.font = fontOf(o); if (o.ls) x.letterSpacing = o.ls + 'px'; const m = x.measureText(s).width; x.restore(); return m; }
+function rr(X, Y, w, h, r) { x.beginPath(); x.moveTo(X + r, Y); x.arcTo(X + w, Y, X + w, Y + h, r); x.arcTo(X + w, Y + h, X, Y + h, r); x.arcTo(X, Y + h, X, Y, r); x.arcTo(X, Y, X + w, Y, r); x.closePath(); }
+function hair(a, b, c, d, col = C.line, lw = 1.5) { x.strokeStyle = col; x.lineWidth = lw; x.beginPath(); x.moveTo(a, b); x.lineTo(c, d); x.stroke(); }
+function shade(X, Y, w, h, a = .85) { x.save(); x.globalAlpha *= a; x.fillStyle = C.bg; x.fillRect(X, Y, w, h); x.restore(); }
+function drop(s, X, Y, t, t0, o = {}) {   // type that drops in letter by letter (ease-back) — Plex Sans bold
+  o = Object.assign({ w: 700 }, o); const fs = o.s || 90, al = o.al || 'left', st = o.st ?? .03, wd = measure(s, o); let cx = al === 'center' ? X - wd / 2 : al === 'right' ? X - wd : X;
+  x.save(); x.font = fontOf(o); if (o.ls) x.letterSpacing = o.ls + 'px'; x.fillStyle = o.c || C.cream; x.textBaseline = 'alphabetic';
+  if (o.sh) { x.shadowColor = o.sh; x.shadowBlur = 16; }
+  for (let i = 0; i < s.length; i++) {
+    const ch = s[i], cw = x.measureText(ch).width + (o.ls || 0), k = seg(t, t0 + i * st, t0 + i * st + .26);
+    if (k > 0) { const e = eback(k); x.save(); x.globalAlpha *= clamp(k * 3) * (o.a ?? 1); x.translate(cx + cw / 2, Y - fs * .5 * (1 - e)); x.fillText(ch, -cw / 2 + (o.ls || 0) / 2, 0); x.restore(); }
+    cx += cw;
+  }
+  x.restore(); const x0 = al === 'center' ? X - wd / 2 : al === 'right' ? X - wd : X;
+  if (o.id && REC && seg(t, t0 + s.length * st, t0 + s.length * st + .3) >= 1) REC.push({ id: o.id, text: s, x0, y0: Y - fs, x1: x0 + wd, y1: Y });
+  return wd;
+}
+function stamp(s, X, Y, t, t0, o = {}) {   // a red stamp for dates and numbers (Plex Mono), lands from 1.5× in 0.14 s
+  const k = seg(t, t0, t0 + .14); if (k <= 0) return; const fs = o.s || 96, sc = lerp(1.5, 1, eo(k)), wd = measure(s, { s: fs, f: 'Mono', w: 600 });
+  const c = mk(Math.ceil(wd + 60), Math.ceil(fs * 1.5)), g = c.getContext('2d');
+  g.font = `600 ${fs}px Mono`; g.fillStyle = o.c || C.red; g.textBaseline = 'middle'; g.fillText(s, 30, c.height / 2 + fs * .04);
+  if (o.box !== false) { g.strokeStyle = o.c || C.red; g.lineWidth = Math.max(2, fs * .05); g.strokeRect(10, 6, c.width - 20, c.height - 12); }
+  g.globalCompositeOperation = 'destination-out'; g.globalAlpha = .35; g.drawImage(SPECK, (o.seed || 0) * 37 % 200, 0, c.width, c.height, 0, 0, c.width, c.height);
+  x.save(); x.translate(X, Y); x.rotate((o.rot ?? -4) * Math.PI / 180); x.scale(sc, sc); x.globalAlpha *= k * (o.a ?? .95);
+  x.drawImage(c, -c.width / 2, -c.height / 2); x.restore();
+  if (o.id && REC) REC.push({ id: o.id, text: s, x0: X - wd / 2, y0: Y - fs / 2, x1: X + wd / 2, y1: Y + fs / 2 });
+}
+function typed(s, X, Y, t, t0, dur, o = {}) {   // Plex Mono typed with a block cursor
+  const fs = o.s || 40, k = seg(t, t0, t0 + dur); if (k <= 0) return; const n = Math.round(s.length * k), part = s.slice(0, n);
+  const w = txt(part, X, Y, { s: fs, f: 'Mono', w: o.w || 600, c: o.c || C.cream, al: o.al, ls: o.ls });
+  if (k < 1 && Math.floor(t * 4) % 2 === 0) { x.save(); x.fillStyle = o.c || C.cream; x.fillRect((o.al === 'center' ? X + w / 2 : X + w) + 4, Y - fs * .78, fs * .5, fs * .9); x.restore(); }
+  if (o.id && REC && k >= 1) REC.push({ id: o.id, text: s, x0: X, y0: Y - fs, x1: X + w, y1: Y });
+}
+const num = (v, d = 0) => v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+function paperCard(X, Y, w, h, t = 0) { x.fillStyle = C.paper; x.fillRect(X, Y, w, h); x.save(); x.globalAlpha = .1; x.globalCompositeOperation = 'multiply'; x.fillStyle = GRAIN[Math.floor(t * 30) % 6]; x.fillRect(X, Y, w, h); x.restore();
+  x.strokeStyle = '#c9bb9c'; x.lineWidth = 1; x.strokeRect(X + .5, Y + .5, w - 1, h - 1); }
+function srcTag(s, X, Y, a = 1, id) { if (!s) return; x.save(); x.globalAlpha *= a; x.fillStyle = C.cream; x.fillRect(X, Y - 12, 6, 13); txt(s, X + 14, Y, { s: 17, f: 'Mono', w: 600, ls: 1, c: C.cream, id }); x.restore(); }
+function capPill(s, X, Y, a = 1) {
+  const lines = String(s).split('\n').map(l => l.toUpperCase()), fs = 19, wd = Math.max(...lines.map(l => measure(l, { s: fs, f: 'Mono', w: 600, ls: 1 }))) + 36, ht = lines.length * 27 + 18;
+  x.save(); x.globalAlpha *= a; shade(X, Y - ht, wd, ht, .82); x.fillStyle = C.red; x.fillRect(X, Y - ht, 4, ht);
+  lines.forEach((l, i) => txt(l, X + 20, Y - ht + 30 + i * 27, { s: fs, f: 'Mono', w: 600, ls: 1, c: C.cream })); x.restore();
+}
+function ground() { x.fillStyle = C.bg; x.fillRect(0, 0, W, H); }
+
+// ── the archive layer: grade per era, grain, dust, gate weave, flicker ─────────────────────────────────────
+const ERAS = { m: { f: 'saturate(.9) contrast(1.04)', g: .07, d: 0, w: 0, fl: 0 }, s: { f: 'saturate(1.12) contrast(1.07) sepia(.12)', g: .11, d: .15, w: 0, fl: .01 },
+  c: { f: 'sepia(.34) saturate(.82) contrast(1.02) brightness(1.01)', g: .15, d: .35, w: .6, fl: .02 }, b: { f: 'grayscale(1) contrast(1.12) brightness(.96)', g: .2, d: .6, w: 1.1, fl: .035 },
+  a: { f: 'grayscale(1) sepia(.72) contrast(1.06) brightness(.95)', g: .24, d: .8, w: 1.5, fl: .055 }, line: { f: 'none', g: 0, d: 0, w: 0, fl: 0 } };
+const eraOf = n => n === 0 || n >= 8 ? 'm' : n >= 6 ? 's' : n >= 4 ? 'c' : n >= 2 ? 'b' : 'a';
+function weave() { const e = ERAS[ERA], f = Math.floor(NOW * 24); return [Math.sin(f * 1.7) * e.w, Math.cos(f * 2.3) * e.w * .7]; }
+function dust(X, Y, w, h, amt) {
+  if (amt <= 0) return; const R = rnd(Math.floor(NOW * 24) * 7 + 1); x.save(); x.beginPath(); x.rect(X, Y, w, h); x.clip();
+  const n = Math.floor(amt * 7 * (w * h) / 1.6e6); x.fillStyle = 'rgba(10,8,6,.75)';
+  for (let i = 0; i < n; i++) { const px = X + R() * w, py = Y + R() * h, r = .6 + R() * 2.2; x.beginPath(); x.ellipse(px, py, r, r * (.4 + R()), R() * 3, 0, 7); x.fill(); }
+  if (R() < amt * .5) { x.strokeStyle = `rgba(230,220,200,${.12 + R() * .15})`; x.lineWidth = 1; const sx = X + R() * w; x.beginPath(); x.moveTo(sx, Y); x.lineTo(sx + (R() - .5) * 8, Y + h); x.stroke(); }
+  x.restore();
+}
+function cover(img, X, Y, w, h, o = {}) {
+  if (!img) { x.fillStyle = '#000'; x.fillRect(X, Y, w, h); return; }
+  const e = ERAS[o.grade || ERA] || ERAS.m, [wx, wy] = o.still ? [0, 0] : weave();
+  const z = o.z || 1, s = Math.max(w / img.width, h / img.height) * z, sw = w / s, sh = h / s;
+  const sx = clamp((img.width - sw) * (o.fx ?? .5) + wx / s, 0, img.width - sw), sy = clamp((img.height - sh) * (o.fy ?? .5) + wy / s, 0, img.height - sh);
+  x.save(); x.fillStyle = '#000'; x.fillRect(X, Y, w, h); x.filter = e.f + (e.fl ? ` brightness(${1 + Math.sin(NOW * 53) * e.fl})` : '');
+  x.drawImage(img, sx, sy, sw, sh, X, Y, w, h); x.filter = 'none';
+  if (e.g) { x.globalCompositeOperation = 'overlay'; x.globalAlpha = e.g; x.fillStyle = GRAIN[Math.floor(NOW * 30) % 6]; x.fillRect(X, Y, w, h); x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1; }
+  const v = x.createRadialGradient(X + w / 2, Y + h / 2, Math.min(w, h) * .35, X + w / 2, Y + h / 2, Math.max(w, h) * .75);
+  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, `rgba(0,0,0,${.18 + e.g})`); x.fillStyle = v; x.fillRect(X, Y, w, h);
+  x.restore(); dust(X, Y, w, h, e.d);
+}
+function plate(img, X, Y, w, h, o = {}) {   // a picture with hard edge, white flash on cut-in, caption pill
+  x.save(); x.globalAlpha *= o.a ?? 1; cover(img, X, Y, w, h, o);
+  if (o.flash > 0) { x.save(); x.globalAlpha *= o.flash * .85; x.fillStyle = '#fff'; x.fillRect(X, Y, w, h); x.restore(); }
+  x.strokeStyle = C.line; x.lineWidth = 1; x.strokeRect(X + .5, Y + .5, w - 1, h - 1);
+  if (o.cap) capPill(o.cap, X + 18, Y + h - 18, o.capA ?? 1);
+  x.restore();
+}
+const TINT = new Map();
+function tinted(img, col) { const k = img._n + col; if (TINT.has(k)) return TINT.get(k); const c = mk(img.width, img.height), g = c.getContext('2d');
+  g.drawImage(img, 0, 0); g.globalCompositeOperation = 'source-in'; g.fillStyle = col; g.fillRect(0, 0, c.width, c.height); TINT.set(k, c); return c; }
+function inkArt(img, X, Y, w, o = {}) {   // a line drawing (patent, cutaway) as cream lines on the dark ground; o.reveal 0..1 draws it top to bottom
+  if (!img) return; const h = w * img.height / img.width, k = o.reveal ?? 1; if (k <= 0) return;
+  x.save(); x.globalAlpha *= o.a ?? 1; x.beginPath(); x.rect(X - 4, Y - 4, w + 8, (h + 8) * k); x.clip(); x.drawImage(tinted(img, o.col || '#E6D7B8'), X, Y, w, h); x.restore();
+  if (k > 0 && k < 1) { const yy = Y + h * k; const g = x.createLinearGradient(0, yy - 30, 0, yy + 4); g.addColorStop(0, 'rgba(229,81,47,0)'); g.addColorStop(1, 'rgba(229,81,47,.55)');
+    x.fillStyle = g; x.fillRect(X - 20, yy - 30, w + 40, 34); hair(X - 20, yy, X + w + 20, yy, C.red, 2); }
+  return h;
+}
+// ── film clips (1963 city film, tower time-lapse): 12 fps frame sequences ────────────────────────────────
+function clipFrame(c, X, Y, w, h, l, o = {}) {
+  const fr = CLIP[c]; if (!fr || !fr.length) { x.fillStyle = '#000'; x.fillRect(X, Y, w, h); return; }
+  const n = fr.length; let i = Math.floor(l * 12); i = o.rev ? (n - 1 - (i % n)) : (Math.floor(i / n) % 2 ? n - 1 - i % n : i % n);
+  cover(fr[clamp(i, 0, n - 1)], X, Y, w, h, o);
+}
+
+// ── camera ──────────────────────────────────────────────────────────────────────────────────────────────
+function camAt(s, t) {
+  const K = s.cam || [[0, W / 2, H / 2, 1, 0]], l = t - s.t0; let i = 0; while (i < K.length - 1 && K[i + 1][0] <= l) i++;
+  const a = K[i], b = K[Math.min(i + 1, K.length - 1)], k = b === a ? 0 : eio(seg(l, a[0], b[0]));
+  return { x: lerp(a[1], b[1], k), y: lerp(a[2], b[2], k), z: lerp(a[3], b[3], k), r: lerp(a[4] || 0, b[4] || 0, k) };
+}
+function withCam(c, fn) { x.save(); x.translate(W / 2, H / 2); x.rotate(c.r * Math.PI / 180); x.scale(c.z, c.z); x.translate(-c.x, -c.y); fn(); x.restore(); }
+function arcPath(A, B, bend = .22) { const mx = (A[0] + B[0]) / 2, my = (A[1] + B[1]) / 2, dx = B[0] - A[0], dy = B[1] - A[1], cx = mx - dy * bend, cy = my + dx * bend;
+  return u => [(1 - u) * (1 - u) * A[0] + 2 * (1 - u) * u * cx + u * u * B[0], (1 - u) * (1 - u) * A[1] + 2 * (1 - u) * u * cy + u * u * B[1]]; }
+function route(A, B, k, o = {}) {
+  if (k <= 0) return; const Q = arcPath(A, B, o.bend ?? .22);
+  x.save(); x.strokeStyle = o.c || C.red; x.lineWidth = o.lw || 3; x.setLineDash(o.dash || [10, 7]); x.beginPath();
+  for (let u = 0; u <= k + 1e-6; u += .02) { const [a, b] = Q(Math.min(u, k)); u ? x.lineTo(a, b) : x.moveTo(a, b); } x.stroke(); x.setLineDash([]); x.restore();
+  if (o.head && k < 1) { const [a, b] = Q(k); o.head(a, b); }
+}
+// ── captions ────────────────────────────────────────────────────────────────────────────────────────────
+function subs(t) { const s = FILM.subs.find(q => t >= q.t0 && t < q.t1); if (!s) return;
+  x.save(); x.shadowColor = 'rgba(0,0,0,1)'; x.shadowBlur = 14; txt(s.text, W / 2, 1022, { s: 47, w: 500, al: 'center' }); txt(s.text, W / 2, 1022, { s: 47, w: 500, al: 'center' }); x.restore(); }
+
+// ── overlay items (on any picture scene) ────────────────────────────────────────────────────────────────
+function items(t, s, list) {
+  for (const it of list || []) {
+    const a0 = AT(s, it.at), k = seg(t, a0, a0 + (it.dur || .5));
+    if (t < a0) continue;
+    switch (it.k) {
+      case 'drop': drop(it.text, it.x, it.y, t, a0, { s: it.s || 80, al: it.al || 'left', c: it.c, sh: 'rgba(0,0,0,.9)', id: it.id || 'dr' }); break;
+      case 'stamp': stamp(it.text, it.x, it.y, t, a0, { s: it.s || 90, rot: it.rot ?? -4, seed: it.seed || 1, id: it.id || 'st' }); break;
+      case 'typed': typed(it.text, it.x, it.y, t, a0, it.dur || .8, { s: it.s || 40, c: it.c, al: it.al, id: it.id || 'ty' }); break;
+      case 'txt': txt(it.text, it.x, it.y, { s: it.s || 40, w: it.w || 500, it: it.it, f: it.f, c: it.c || C.cream, al: it.al, a: k, sh: 'rgba(0,0,0,.85)', id: it.id || 'tx' }); break;
+      case 'tag': srcTag(it.text, it.x, it.y, k, it.id || 'tg'); break;
+      case 'ring': { x.save(); x.strokeStyle = C.red; x.lineWidth = 5; x.beginPath(); x.ellipse(it.x, it.y, it.r * (it.sx || 1), it.r, 0, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * eo(k)); x.stroke(); x.restore(); break; }
+      case 'count': { const v = lerp(it.from || 0, it.to, eo(seg(t, a0, a0 + (it.dur || 1.6)))); txt((it.pre || '') + num(v, it.d || 0) + (it.post || ''), it.x, it.y, { s: it.s || 140, f: 'Mono', w: 600, c: it.c || C.red, al: it.al || 'center', sh: 'rgba(0,0,0,.9)', id: it.id || 'ct' });
+        if (it.label) txt(it.label, it.x, it.y + 56, { s: 34, w: 500, al: it.al || 'center', a: seg(t, a0 + .3, a0 + .7), sh: 'rgba(0,0,0,.9)', id: (it.id || 'ct') + 'l' }); break; }
+      case 'cap': capPill(it.text, it.x, it.y, k); break;
+      case 'ex': sticker(it.label || (it.side === 'd' ? 'DEFENDANT’S EXHIBIT' : 'PLAINTIFFS’ EXHIBIT'), it.no, it.x, it.y, t, a0, it.side || 'p', { rot: it.rot }); break;
+      case 'bar': { x.save(); x.globalAlpha = k * .8; x.fillStyle = C.bg; x.fillRect(it.x, it.y, it.w, it.h); x.restore(); break; }
+    }
+  }
+}
+
+// ── scenes ──────────────────────────────────────────────────────────────────────────────────────────────
+const flashK = (t, s) => s.noflash ? 0 : 1 - seg(t, s.t0, s.t0 + .12);
+function sHero(t, s) {   // one big picture (or film clip) with a slow push; tag; overlays
+  const a = s.box || [180, 60, 1560, 860], k = LK(t, s), z = lerp(s.z?.[0] ?? 1, s.z?.[1] ?? 1.06, eio(k));
+  if (s.clip) clipFrame(s.clip, a[0], a[1], a[2], a[3], t - s.t0, { z, fx: s.fx, fy: s.fy, rev: s.rev });
+  else cover(IM[s.img], a[0], a[1], a[2], a[3], { z, fx: s.fx, fy: s.fy, grade: s.grade });
+  if (!s.noflash) { const f = flashK(t, s); if (f > 0) { x.save(); x.globalAlpha = f * .8; x.fillStyle = '#fff'; x.fillRect(a[0], a[1], a[2], a[3]); x.restore(); } }
+  x.strokeStyle = C.line; x.lineWidth = 1; x.strokeRect(a[0] + .5, a[1] + .5, a[2] - 1, a[3] - 1);
+  if (s.cap) capPill(s.cap, a[0] + 18, a[1] + a[3] - 18);
+  srcTag(s.tag, a[0], a[1] - 16, 1, 'tg'); items(t, s, s.items);
+}
+function sPair(t, s) {   // two pictures, the second arrives later
+  const L = s.L, R = s.R;
+  cover(IM[L.img], L.box[0], L.box[1], L.box[2], L.box[3], { z: lerp(1, 1.05, LK(t, s)), fx: L.fx, fy: L.fy, grade: L.grade }); srcTag(L.tag, L.box[0], L.box[1] - 16, 1, 'tl');
+  if (L.cap) capPill(L.cap, L.box[0] + 18, L.box[1] + L.box[3] - 18);
+  const a0 = AT(s, R.at), k = seg(t, a0, a0 + .35); if (k > 0) {
+    x.save(); x.globalAlpha = k; x.translate(0, (1 - eo(k)) * 40); cover(IM[R.img], R.box[0], R.box[1], R.box[2], R.box[3], { fx: R.fx, fy: R.fy, grade: R.grade });
+    const f = 1 - seg(t, a0, a0 + .12); if (f > 0) { x.globalAlpha = f * .8; x.fillStyle = '#fff'; x.fillRect(R.box[0], R.box[1], R.box[2], R.box[3]); x.globalAlpha = k; }
+    if (R.cap) capPill(R.cap, R.box[0] + 18, R.box[1] + R.box[3] - 18); x.restore(); srcTag(R.tag, R.box[0], R.box[1] - 16, k, 'tr'); }
+  items(t, s, s.items);
+}
+function sClip(t, s) {   // the 1963 city film in a projector gate
+  const Wd = s.w || 1180, Hd = Math.round(Wd * .75), X = (W - Wd) / 2, Y = s.y ?? 52, l = t - s.t0;
+  const per = (s.t1 - s.t0) / s.clips.length, ci = Math.min(s.clips.length - 1, Math.floor(l / per)), c = s.clips[ci];
+  x.save(); rr(X, Y, Wd, Hd, 22); x.clip(); clipFrame(c, X, Y, Wd, Hd, l - ci * per, { z: lerp(1, 1.04, (l - ci * per) / per), rev: s.rev });
+  const f = 1 - seg(l - ci * per, 0, .1); if (f > 0 && !s.noflash) { x.globalAlpha = f * .6; x.fillStyle = '#fff'; x.fillRect(X, Y, Wd, Hd); }
+  x.restore(); x.strokeStyle = C.line; x.lineWidth = 2; rr(X, Y, Wd, Hd, 22); x.stroke();
+  srcTag(s.tag, X, Y - 14, 1, 'tg');
+  if (s.caps) capPill(s.caps[ci], X + 18, Y + Hd - 18);
+  if (s.rev) { const k = Math.floor(NOW * 2) % 2; txt('◀◀ REWIND', X + Wd - 24, Y + 46, { s: 26, f: 'Mono', w: 600, c: C.red, al: 'right', a: .6 + k * .4 }); }
+  items(t, s, s.items);
+}

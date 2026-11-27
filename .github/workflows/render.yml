@@ -1,0 +1,97 @@
+# Render the film on GitHub Actions: the frame range is split across many parallel CPU jobs
+# (Canvas 2D page), then one job joins the parts into one picture-only video; the soundtrack is added locally.
+# Run it from the Actions tab ("Render film" → Run workflow) or: gh workflow run render.yml -f start=0 -f end=10
+name: Render film
+
+on:
+  workflow_dispatch:
+    inputs:
+      start: { description: 'Start second', default: '0' }
+      end: { description: 'End second (1279.8 = whole film)', default: '1279.8' }
+      parts: { description: 'Parallel render jobs (max 20 on free plans)', default: '20' }
+      fps: { description: 'Frames per second', default: '30' }
+
+env:
+  LIB: ${{ github.workspace }}/lemo-opuscar
+  LIB_REF: 8ca0dd8          # library version this film was built with
+  LEMO_ANGLE: swiftshader   # hosted runners have no GPU: software WebGL
+
+defaults:
+  run:
+    shell: bash          # bash -eo pipefail: a crashed render fails its job instead of hiding behind | tee
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - id: p
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json
+          a, b, n, fps = float('${{ inputs.start }}'), float('${{ inputs.end }}'), int('${{ inputs.parts }}'), float('${{ inputs.fps }}')
+          f0, f1 = round(a * fps), round(b * fps); n = max(1, min(n, f1 - f0))
+          cuts = [f0 + (f1 - f0) * i // n for i in range(n + 1)]
+          parts = [{'i': f'{i:02d}', 'a': cuts[i] / fps, 'b': cuts[i + 1] / fps} for i in range(n) if cuts[i + 1] > cuts[i]]
+          print('matrix=' + json.dumps({'include': parts}))
+          EOF
+
+  render:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: film }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Library + headless browser
+        run: |
+          git clone https://github.com/lemomo-ai/lemo-opuscar "$LIB"
+          git -C "$LIB" checkout "$LIB_REF" || echo "pinned commit not found, using the default branch"
+          cd "$LIB" && (npm ci --no-audit --no-fund || npm install --no-audit --no-fund)
+          node node_modules/playwright-core/cli.js install --with-deps chromium-headless-shell
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Render ${{ matrix.a }}s – ${{ matrix.b }}s
+        run: |
+          cd "$LIB"
+          nproc; t0=$(date +%s.%N)
+          node "$GITHUB_WORKSPACE/film/tools/render_range.mjs" ${{ matrix.a }} ${{ matrix.b }} --fps ${{ inputs.fps }} --workers "$(nproc)" --out "$GITHUB_WORKSPACE/part_${{ matrix.i }}.mp4" | tee render.log
+          test -s "$GITHUB_WORKSPACE/part_${{ matrix.i }}.mp4"
+          t1=$(date +%s.%N); n=$(python3 -c "print(round(${{ matrix.b }}*${{ inputs.fps }}) - round(${{ matrix.a }}*${{ inputs.fps }}))")
+          spf=$(python3 -c "print(f'{($t1-$t0)/$n:.2f}')")
+          echo "part ${{ matrix.i }}: $n frames in $(python3 -c "print(round($t1-$t0))") s on $(nproc) cores → **$spf s/frame** (wall clock, whole runner)" | tee -a "$GITHUB_STEP_SUMMARY"
+          grep -m1 -i "software\|swiftshader" render.log >> "$GITHUB_STEP_SUMMARY" || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: part-${{ matrix.i }}
+          path: part_${{ matrix.i }}.mp4
+          retention-days: 3
+
+  assemble:
+    needs: render
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: film }
+      - uses: actions/download-artifact@v4
+        with: { pattern: part-*, merge-multiple: true, path: parts }
+      - name: Join parts (picture only)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          ls parts/*.mp4 | sort | sed "s#^#file '$PWD/#; s#\$#'#" > list.txt
+          ffmpeg -v error -y -f concat -safe 0 -i list.txt -c copy -an youngstown-video.mp4
+          got=$(ffprobe -v error -count_packets -select_streams v -show_entries stream=nb_read_packets -of default=nw=1:nk=1 youngstown-video.mp4 | tr -dc 0-9)
+          want=$(python3 -c "print(round(${{ inputs.end }}*${{ inputs.fps }}) - round(${{ inputs.start }}*${{ inputs.fps }}))")
+          echo "joined $(ls parts/*.mp4 | wc -l) parts: $got frames (expected $want)" | tee -a "$GITHUB_STEP_SUMMARY"
+          [ "$got" = "$want" ] || { echo "::error::frame count mismatch, a part is missing"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: youngstown-video
+          path: youngstown-video.mp4
+          retention-days: 7

@@ -1,0 +1,15 @@
+*.mp4
+__pycache__/
+audio/vo/
+audio/vo_raw/
+out/
+raw/
+research/
+stills/
+tools/pylib/
+voice-test/
+assets/*
+!assets/map.json
+!assets/sizes.json
+stills2/
+!assets/clips.json

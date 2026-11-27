@@ -1,0 +1,1370 @@
+[
+ {
+  "id": "h01",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On Monday, the nineteenth of September, nineteen seventy-seven, the union presidents at Youngstown Sheet and Tube were told to come to a meeting at ten in the morning.",
+  "subs": [
+   "On Monday, 19 September 1977, the union presidents",
+   "at Youngstown Sheet and Tube were told",
+   "to come to a meeting at ten in the morning."
+  ]
+ },
+ {
+  "id": "h02",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "A company manager handed them a statement and read it aloud. Most of the Campbell Works was closing. About five thousand people would lose their jobs.",
+  "subs": [
+   "A company manager handed them a statement and read it aloud.",
+   "Most of the Campbell Works was closing.",
+   "About 5,000 people would lose their jobs."
+  ]
+ },
+ {
+  "id": "h03",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "One of the union men interrupted him with a question.",
+  "subs": [
+   "One of the union men interrupted him with a question."
+  ]
+ },
+ {
+  "id": "w01",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "",
+  "subs": [],
+  "witness": {
+   "hold": 5.2,
+   "q": [
+    "“Are you cutting the cord?",
+    "Are they done?”",
+    "",
+    "“Yes.”"
+   ],
+   "who": "Ed Mann · and the company’s answer",
+   "role": "PRESIDENT, LOCAL 1462 · 19 SEPTEMBER 1977",
+   "src": "AS RECOUNTED TO THE NLRB · STAUGHTON LYND, THE FIGHT AGAINST SHUTDOWNS (1982)"
+  }
+ },
+ {
+  "id": "h04",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Youngstown, Ohio. In nineteen thirty, a hundred and seventy thousand people lived here. In twenty twenty, about sixty thousand.",
+  "subs": [
+   "Youngstown, Ohio. In 1930, 170,002 people lived here.",
+   "In 2020, 60,068."
+  ]
+ },
+ {
+  "id": "h05",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Two years after that Monday, when a second steel company said it was leaving too, the steelworkers of this town did something almost no town had tried.",
+  "subs": [
+   "Two years after that Monday, when a second steel company",
+   "said it was leaving too, the steelworkers of this town",
+   "did something almost no town had tried."
+  ]
+ },
+ {
+  "id": "h06",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "They took the company to federal court. And they asked a judge to rule that a town has a right to the mill it built its life around.",
+  "subs": [
+   "They took the company to federal court.",
+   "And they asked a judge to rule that a town has a right",
+   "to the mill it built its life around."
+  ]
+ },
+ {
+  "id": "h07",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Tonight, you'll hear that case. The charge. The evidence. The witnesses. The company's defence. And the verdict. Then you decide.",
+  "subs": [
+   "Tonight, you'll hear that case. The charge. The evidence.",
+   "The witnesses. The company's defence. And the verdict.",
+   "Then you decide."
+  ]
+ },
+ {
+  "id": "h08",
+  "chapter": "hook",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "This is for anyone who ever packed a lunch for a shift like that. This is Mill Town.",
+  "subs": [
+   "This is for anyone who ever packed a lunch for a shift like that.",
+   "This is Mill Town."
+  ]
+ },
+ {
+  "id": "a01",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part one. The opening statement.",
+  "subs": [
+   "Part one. The opening statement."
+  ]
+ },
+ {
+  "id": "a02",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The Mahoning River runs south-east out of Warren, through Niles and Girard, through Youngstown, Campbell and Struthers, and on into Pennsylvania.",
+  "subs": [
+   "The Mahoning River runs south-east out of Warren,",
+   "through Niles and Girard, through Youngstown,",
+   "Campbell and Struthers, and on into Pennsylvania."
+  ]
+ },
+ {
+  "id": "a03",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "People were making iron along this river by the early eighteen hundreds. There was coal in the hills, and limestone, and water.",
+  "subs": [
+   "People were making iron along this river",
+   "by the early 1800s.",
+   "There was coal in the hills, and limestone, and water."
+  ]
+ },
+ {
+  "id": "a04",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In nineteen hundred, a group of Youngstown men raised six hundred thousand dollars and started a company of their own. They called it the Youngstown Iron Sheet and Tube Company.",
+  "subs": [
+   "In 1900, a group of Youngstown men raised $600,000",
+   "and started a company of their own.",
+   "They called it the Youngstown Iron Sheet and Tube Company."
+  ]
+ },
+ {
+  "id": "a05",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "It was a local company, run by local families. It would grow into one of the biggest steelmakers in America.",
+  "subs": [
+   "It was a local company, run by local families.",
+   "It would grow into one of the biggest steelmakers in America."
+  ]
+ },
+ {
+  "id": "a06",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In nineteen oh one, the Ohio Works, on the west side of town, began making steel for a new giant: the United States Steel Corporation.",
+  "subs": [
+   "In 1901, the Ohio Works, on the west side of town,",
+   "began making steel for a new giant:",
+   "the United States Steel Corporation."
+  ]
+ },
+ {
+  "id": "a07",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In nineteen eighteen, U.S. Steel added the McDonald Works, a few miles upriver.",
+  "subs": [
+   "In 1918, U.S. Steel added the McDonald Works,",
+   "a few miles upriver."
+  ]
+ },
+ {
+  "id": "a08",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And on the twentieth of September that year, at the Brier Hill Works, a girl named Mary Jeannette Thomas lit a brand-new blast furnace.",
+  "subs": [
+   "And on 20 September that year, at the Brier Hill Works,",
+   "a girl named Mary Jeannette Thomas",
+   "lit a brand-new blast furnace."
+  ]
+ },
+ {
+  "id": "a09",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "They named it after her. Jeannette. Everyone in town called it Jenny.",
+  "subs": [
+   "They named it after her. Jeannette.",
+   "Everyone in town called it Jenny."
+  ]
+ },
+ {
+  "id": "a10",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Four great mills along one river, and more besides. And around them, a city grew.",
+  "subs": [
+   "Four great mills along one river, and more besides.",
+   "And around them, a city grew."
+  ]
+ },
+ {
+  "id": "a11",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "By nineteen thirty, Youngstown had a hundred and seventy thousand people. Many had crossed an ocean to work in steel.",
+  "subs": [
+   "By 1930, Youngstown had 170,002 people.",
+   "Many had crossed an ocean to work in steel."
+  ]
+ },
+ {
+  "id": "a12",
+  "chapter": "p1",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "So here is the first thing the jury should ask. What did the mills give this town? And what did the town give back?",
+  "subs": [
+   "So here is the first thing the jury should ask.",
+   "What did the mills give this town?",
+   "And what did the town give back?"
+  ]
+ },
+ {
+  "id": "b01",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part two. Exhibit A. What the town built.",
+  "subs": [
+   "Part two. Exhibit A. What the town built."
+  ]
+ },
+ {
+  "id": "b02",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In nineteen forty-four, the government sent a film crew to Youngstown to show the country how steel was made for the war.",
+  "subs": [
+   "In 1944, the government sent a film crew to Youngstown",
+   "to show the country how steel was made for the war."
+  ]
+ },
+ {
+  "id": "b03",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "They called the film Steel Town. These are the people they found.",
+  "subs": [
+   "They called the film Steel Town.",
+   "These are the people they found."
+  ]
+ },
+ {
+  "id": "b04",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Italians on Brier Hill. Slovaks, Hungarians, Greeks, Poles, and many more. And Black families who had come north from the South.",
+  "subs": [
+   "Italians on Brier Hill. Slovaks, Hungarians, Greeks, Poles,",
+   "and many more. And Black families who had come north",
+   "from the South."
+  ]
+ },
+ {
+  "id": "b05",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The work was hot, loud and dangerous. Men stood a few feet from molten iron for eight hours at a time.",
+  "subs": [
+   "The work was hot, loud and dangerous.",
+   "Men stood a few feet from molten iron for eight hours at a time."
+  ]
+ },
+ {
+  "id": "b06",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "They fought for a union, and in the summer of nineteen thirty-seven, people were killed in Youngstown in that fight. But the union came.",
+  "subs": [
+   "They fought for a union, and in the summer of 1937,",
+   "people were killed in Youngstown in that fight.",
+   "But the union came."
+  ]
+ },
+ {
+  "id": "b07",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And with it, a mill job that paid for a house. A car. A summer week at the lake. Children who went to college.",
+  "subs": [
+   "And with it, a mill job that paid for a house. A car.",
+   "A summer week at the lake. Children who went to college."
+  ]
+ },
+ {
+  "id": "b08",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "By nineteen fifty, Sheet and Tube alone employed about twenty-seven thousand people.",
+  "subs": [
+   "By 1950, Sheet and Tube alone employed about 27,000 people."
+  ]
+ },
+ {
+  "id": "b09",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Years later, one of those steelworkers described the job in a single sentence.",
+  "subs": [
+   "Years later, one of those steelworkers",
+   "described the job in a single sentence."
+  ]
+ },
+ {
+  "id": "w02",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "",
+  "subs": [],
+  "witness": {
+   "hold": 5.6,
+   "q": [
+    "“Every day you put your life",
+    "on the line when you went",
+    "into that iron house.”"
+   ],
+   "who": "Ed Mann",
+   "role": "BRIER HILL STEELWORKER · SPEAKING IN 1980",
+   "src": "SPEECH, 28 JAN 1980 · LYND, THE FIGHT AGAINST SHUTDOWNS (1982)",
+   "img": "st_worker"
+  }
+ },
+ {
+  "id": "b10",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "This was the bargain. The town gave the mills its sons, its daughters, its air and its river. The mills gave the town a living.",
+  "subs": [
+   "This was the bargain. The town gave the mills its sons,",
+   "its daughters, its air and its river.",
+   "The mills gave the town a living."
+  ]
+ },
+ {
+  "id": "b11",
+  "chapter": "p2",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "But a bargain needs two sides. So who owned all this?",
+  "subs": [
+   "But a bargain needs two sides.",
+   "So who owned all this?"
+  ]
+ },
+ {
+  "id": "c01",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part three. Exhibit B. The merger.",
+  "subs": [
+   "Part three. Exhibit B. The merger."
+  ]
+ },
+ {
+  "id": "c02",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In nineteen sixty-nine, Youngstown Sheet and Tube merged with the Likes Corporation, a shipping company from New Orleans.",
+  "subs": [
+   "In 1969, Youngstown Sheet and Tube merged with",
+   "the Lykes Corporation, a shipping company from New Orleans."
+  ]
+ },
+ {
+  "id": "c03",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The decisions about Youngstown's biggest employer were now made a thousand miles away, by a company that did not make steel.",
+  "subs": [
+   "The decisions about Youngstown's biggest employer were now",
+   "made a thousand miles away,",
+   "by a company that did not make steel."
+  ]
+ },
+ {
+  "id": "c04",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The merger left Sheet and Tube carrying heavy debt. And the money that was spent on steel went mostly to the company's newer works near Chicago.",
+  "subs": [
+   "The merger left Sheet and Tube carrying heavy debt.",
+   "And the money that was spent on steel went mostly",
+   "to the company's newer works near Chicago."
+  ]
+ },
+ {
+  "id": "c05",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Meanwhile, the Campbell Works was getting old. Cheaper steel was arriving from Japan and Europe.",
+  "subs": [
+   "Meanwhile, the Campbell Works was getting old.",
+   "Cheaper steel was arriving from Japan and Europe."
+  ]
+ },
+ {
+  "id": "c06",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In the summer of nineteen seventy-seven, the union men asked the managers whether the plant was in trouble. Under oath, later, they said the answer was: we'll make it.",
+  "subs": [
+   "In the summer of 1977, the union men asked the managers",
+   "whether the plant was in trouble. Under oath, later,",
+   "they said the answer was: “We'll make it.”"
+  ]
+ },
+ {
+  "id": "c07",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Then came Monday, the nineteenth of September.",
+  "subs": [
+   "Then came Monday, 19 September."
+  ]
+ },
+ {
+  "id": "c08",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The statement said the company would move a major part of its steelmaking to Indiana Harbor, near Chicago. It said the cutback would require the lay-off or termination of approximately five thousand employees.",
+  "subs": [
+   "The statement said the company would move a major part",
+   "of its steelmaking to Indiana Harbor, near Chicago.",
+   "The cutback would require the lay-off or termination",
+   "of approximately 5,000 employees."
+  ]
+ },
+ {
+  "id": "c09",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "There had been no warning. There was no law that said there had to be.",
+  "subs": [
+   "There had been no warning.",
+   "There was no law that said there had to be."
+  ]
+ },
+ {
+  "id": "c10",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Youngstown still has a name for that day. Black Monday.",
+  "subs": [
+   "Youngstown still has a name for that day.",
+   "Black Monday."
+  ]
+ },
+ {
+  "id": "c11",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "At Thanksgiving, a hundred and eighty-five clergy from across the valley signed a pastoral letter. It opened with one line.",
+  "subs": [
+   "At Thanksgiving, 185 clergy from across the valley",
+   "signed a pastoral letter. It opened with one line."
+  ]
+ },
+ {
+  "id": "w03",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "",
+  "subs": [],
+  "witness": {
+   "hold": 4.6,
+   "q": [
+    "“Our community was wounded",
+    "on September 19.”"
+   ],
+   "who": "Pastoral letter",
+   "role": "185 RELIGIOUS LEADERS OF THE MAHONING VALLEY · NOV 1977",
+   "src": "QUOTED IN LYND, THE FIGHT AGAINST SHUTDOWNS (1982)"
+  }
+ },
+ {
+  "id": "c12",
+  "chapter": "p3",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And then the people who signed it asked a question nobody had asked before. Could the town buy its own mill back?",
+  "subs": [
+   "And then the people who signed it asked a question",
+   "nobody had asked before.",
+   "Could the town buy its own mill back?"
+  ]
+ },
+ {
+  "id": "d01",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part four. The witnesses.",
+  "subs": [
+   "Part four. The witnesses."
+  ]
+ },
+ {
+  "id": "d02",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The first to come forward were churchmen. The Catholic bishop of Youngstown, James Malone. The Episcopal bishop of Ohio, John Burt.",
+  "subs": [
+   "The first to come forward were churchmen.",
+   "The Catholic bishop of Youngstown, James Malone.",
+   "The Episcopal bishop of Ohio, John Burt."
+  ]
+ },
+ {
+  "id": "d03",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "They formed the Ecumenical Coalition of the Mahoning Valley, and they set out to reopen the Campbell Works, owned by its workers and its community.",
+  "subs": [
+   "They formed the Ecumenical Coalition of the Mahoning Valley,",
+   "and they set out to reopen the Campbell Works,",
+   "owned by its workers and its community."
+  ]
+ },
+ {
+  "id": "d04",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "It would cost hundreds of millions of dollars. So they asked the town to show Washington that it meant it.",
+  "subs": [
+   "It would cost hundreds of millions of dollars.",
+   "So they asked the town to show Washington that it meant it."
+  ]
+ },
+ {
+  "id": "d05",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In February nineteen seventy-eight, at a church service in Boardman, they opened the Save Our Valley campaign. People opened savings accounts that could one day become shares in the mill.",
+  "subs": [
+   "In February 1978, at a church service in Boardman,",
+   "they opened the Save Our Valley campaign.",
+   "People opened savings accounts that could one day",
+   "become shares in the mill."
+  ]
+ },
+ {
+  "id": "d06",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "By that November, there were four thousand, one hundred and thirty-eight accounts. Just over four million dollars.",
+  "subs": [
+   "By that November, there were 4,138 accounts.",
+   "Just over $4 million."
+  ]
+ },
+ {
+  "id": "d07",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "It was never going to be enough on its own. The plan needed federal loan guarantees. And for months, the town waited for Washington.",
+  "subs": [
+   "It was never going to be enough on its own.",
+   "The plan needed federal loan guarantees.",
+   "And for months, the town waited for Washington."
+  ]
+ },
+ {
+  "id": "d08",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On the twenty-ninth of March, nineteen seventy-nine, a steelworker named Len Balluck stood in front of the reporters.",
+  "subs": [
+   "On 29 March 1979, a steelworker named Len Balluck",
+   "stood in front of the reporters."
+  ]
+ },
+ {
+  "id": "w04",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "",
+  "subs": [],
+  "witness": {
+   "hold": 4.8,
+   "q": [
+    "“They threw 5,000 lives",
+    "on a human garbage pile.”"
+   ],
+   "who": "Len Balluck",
+   "role": "CAMPBELL WORKS STEELWORKER FOR 20 YEARS · 29 MARCH 1979",
+   "src": "PRESS CONFERENCE · QUOTED IN LYND, THE FIGHT AGAINST SHUTDOWNS (1982)"
+  }
+ },
+ {
+  "id": "d09",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The next morning, a letter arrived from the Commerce Department. The coalition's plan needed two hundred and forty-five million dollars in guarantees. The limit for any one company, the letter said, was one hundred million.",
+  "subs": [
+   "The next morning, a letter arrived from the Commerce Department.",
+   "The plan needed $245 million in guarantees.",
+   "The limit for any one company, the letter said,",
+   "was $100 million."
+  ]
+ },
+ {
+  "id": "d10",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The answer was no.",
+  "subs": [
+   "The answer was no."
+  ]
+ },
+ {
+  "id": "d11",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The national steelworkers' union, in Pittsburgh, had its own strategy for the whole industry, and it kept its distance from the fight in Youngstown.",
+  "subs": [
+   "The national steelworkers' union, in Pittsburgh,",
+   "had its own strategy for the whole industry,",
+   "and it kept its distance from the fight in Youngstown."
+  ]
+ },
+ {
+  "id": "d12",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And by then, the second wave had already come. Sheet and Tube had been merged again, into a bigger company, and the Brier Hill Works was to close by the end of nineteen seventy-nine.",
+  "subs": [
+   "And by then, the second wave had already come.",
+   "Sheet and Tube had been merged again, into a bigger company,",
+   "and the Brier Hill Works was to close by the end of 1979."
+  ]
+ },
+ {
+  "id": "d13",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "About fifteen hundred more jobs. By the end of the year, Brier Hill was silent.",
+  "subs": [
+   "About 1,500 more jobs.",
+   "By the end of the year, Brier Hill was silent."
+  ]
+ },
+ {
+  "id": "d14",
+  "chapter": "p4",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "That left one company in town still making steel. U.S. Steel. Was anyone still promising to stay?",
+  "subs": [
+   "That left one company in town still making steel. U.S. Steel.",
+   "Was anyone still promising to stay?"
+  ]
+ },
+ {
+  "id": "e01",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part five. Exhibit C. The promise.",
+  "subs": [
+   "Part five. Exhibit C. The promise."
+  ]
+ },
+ {
+  "id": "e02",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "U.S. Steel's Ohio and McDonald Works employed about thirty-five hundred people. And they could hear the news from down the river.",
+  "subs": [
+   "U.S. Steel's Ohio and McDonald Works employed about 3,500 people.",
+   "And they could hear the news from down the river."
+  ]
+ },
+ {
+  "id": "e03",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The company had a telephone hot line its workers could call for news. Every message was recorded. Later, they would be read out in court.",
+  "subs": [
+   "The company had a telephone hot line its workers could call",
+   "for news. Every message was recorded.",
+   "Later, they would be read out in court."
+  ]
+ },
+ {
+  "id": "e04",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On the first of September, nineteen seventy-seven, eighteen days before Black Monday, the superintendent, Bill Ashton, recorded this: there are no immediate plans to permanently shut down either the Ohio Works or McDonald Mills.",
+  "subs": [
+   "On 1 September 1977, 18 days before Black Monday,",
+   "the superintendent, Bill Ashton, recorded this:",
+   "“There are no immediate plans to permanently shut down",
+   "either the Ohio Works or McDonald Mills.”"
+  ]
+ },
+ {
+  "id": "e05",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "But he added: the continued operation of these plants is absolutely dependent upon their being profit-makers.",
+  "subs": [
+   "But he added: “The continued operation of these plants",
+   "is absolutely dependent upon their being profit-makers.”"
+  ]
+ },
+ {
+  "id": "e06",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "So the workers set out to make them profitable. In February nineteen seventy-eight, a new superintendent took over. His name was Bill Kirwan.",
+  "subs": [
+   "So the workers set out to make them profitable.",
+   "In February 1978, a new superintendent took over.",
+   "His name was Bill Kirwan."
+  ]
+ },
+ {
+  "id": "e07",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "That April, he had good news for the hot line. In March, for the first time in a long, long time, the Youngstown Works had earned a profit.",
+  "subs": [
+   "That April, he had good news for the hot line.",
+   "“In the month of March, for the first time in a long, long time,",
+   "the Youngstown Works earned a profit.”"
+  ]
+ },
+ {
+  "id": "e08",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And he signed off like this. Keep up the momentum. Our future is what we make it.",
+  "subs": [
+   "And he signed off like this:",
+   "“Keep up the momentum — our future is what we make it.”"
+  ]
+ },
+ {
+  "id": "e09",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "At the end of the year, he thanked every man and woman at the two mills. The goal for nineteen seventy-eight, he said, had been survival. The goal for nineteen seventy-nine was revival.",
+  "subs": [
+   "At the end of the year, he thanked every man and woman",
+   "at the two mills. The goal for 1978, he said,",
+   "had been “survival.” The goal for 1979 was “revival.”"
+  ]
+ },
+ {
+  "id": "e10",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In June nineteen seventy-nine, U.S. Steel's chairman, David Roderick, said it on television. Simply stated, we have no plans for shutting down our Youngstown operation.",
+  "subs": [
+   "In June 1979, U.S. Steel's chairman, David Roderick,",
+   "said it on television: “Simply stated, we have no plans",
+   "for shutting down our Youngstown operation.”"
+  ]
+ },
+ {
+  "id": "e11",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On the twenty-seventh of November, nineteen seventy-nine, a steelworker named Frank Georges bought a new house. Driving home from the bank, he heard the news on his car radio.",
+  "subs": [
+   "On 27 November 1979, a steelworker named Frank Georges",
+   "bought a new house. Driving home from the bank,",
+   "he heard the news on his car radio."
+  ]
+ },
+ {
+  "id": "e12",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "U.S. Steel was closing the Ohio Works and the McDonald Works. Thirty-five hundred more jobs.",
+  "subs": [
+   "U.S. Steel was closing the Ohio Works and the McDonald Works.",
+   "3,500 more jobs."
+  ]
+ },
+ {
+  "id": "e13",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On a freezing Monday in January nineteen eighty, the steelworkers met at the Local thirteen-thirty union hall. U.S. Steel's district headquarters was just down the hill.",
+  "subs": [
+   "On a freezing Monday in January 1980, the steelworkers met",
+   "at the Local 1330 union hall.",
+   "U.S. Steel's district headquarters was just down the hill."
+  ]
+ },
+ {
+  "id": "e14",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Ed Mann, whose own mill at Brier Hill was already gone, stood up and told the meeting where he was going.",
+  "subs": [
+   "Ed Mann, whose own mill at Brier Hill was already gone,",
+   "stood up and told the meeting where he was going."
+  ]
+ },
+ {
+  "id": "w05",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "",
+  "subs": [],
+  "witness": {
+   "hold": 5.4,
+   "q": [
+    "“Now, I’m going down that hill",
+    "and I’m going into",
+    "that building.”"
+   ],
+   "who": "Ed Mann",
+   "role": "PRESIDENT, LOCAL 1462 · 28 JANUARY 1980",
+   "src": "SPEECH AT THE LOCAL 1330 HALL · LYND, THE FIGHT AGAINST SHUTDOWNS (1982)",
+   "img": "st_crowd"
+  }
+ },
+ {
+  "id": "e15",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Hundreds followed him. The door gave way. For several hours, the steelworkers held the building, and a banner hung from the upper windows: Keep Our Mills Open.",
+  "subs": [
+   "Hundreds followed him. The door gave way.",
+   "For several hours, the steelworkers held the building,",
+   "and a banner hung from the upper windows:",
+   "“Keep Our Mills Open.”"
+  ]
+ },
+ {
+  "id": "e16",
+  "chapter": "p5",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "They had believed a promise. But can a promise like that hold up in court?",
+  "subs": [
+   "They had believed a promise.",
+   "But can a promise like that hold up in court?"
+  ]
+ },
+ {
+  "id": "f01",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part six. The trial.",
+  "subs": [
+   "Part six. The trial."
+  ]
+ },
+ {
+  "id": "f02",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On the twenty-first of December, nineteen seventy-nine, the steelworkers had filed suit. Local thirteen-thirty, United Steel Workers of America, against the United States Steel Corporation.",
+  "subs": [
+   "On 21 December 1979, the steelworkers had filed suit.",
+   "Local 1330, United Steel Workers of America,",
+   "against the United States Steel Corporation."
+  ]
+ },
+ {
+  "id": "f03",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Their lawyer was Staughton Lynd, a historian turned labour lawyer. The case went to a federal judge in Cleveland, Thomas Lambros.",
+  "subs": [
+   "Their lawyer was Staughton Lynd, a historian turned labour lawyer.",
+   "The case went to a federal judge in Cleveland, Thomas Lambros."
+  ]
+ },
+ {
+  "id": "f04",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The workers made two arguments. First: the company had made a promise, and they had kept their side of it.",
+  "subs": [
+   "The workers made two arguments.",
+   "First: the company had made a promise,",
+   "and they had kept their side of it."
+  ]
+ },
+ {
+  "id": "f05",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And second, an idea no American court had ever accepted. That after eighty years, the town itself had a claim on the mills.",
+  "subs": [
+   "And second, an idea no American court had ever accepted.",
+   "That after eighty years, the town itself",
+   "had a claim on the mills."
+  ]
+ },
+ {
+  "id": "f06",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In February, U.S. Steel told the court it would shut the mills sooner than planned. Judge Lambros called both sides in.",
+  "subs": [
+   "In February, U.S. Steel told the court it would shut the mills",
+   "sooner than planned. Judge Lambros called both sides in."
+  ]
+ },
+ {
+  "id": "f07",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And on the twenty-eighth of February, nineteen eighty, the judge himself said something nobody in the room expected.",
+  "subs": [
+   "And on 28 February 1980, the judge himself",
+   "said something nobody in the room expected."
+  ]
+ },
+ {
+  "id": "f08",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Everything that has happened in the Mahoning Valley has been happening for many years because of steel. Schools have been built, roads have been built.",
+  "subs": [
+   "“Everything that has happened in the Mahoning Valley",
+   "has been happening for many years because of steel.",
+   "Schools have been built, roads have been built.”"
+  ]
+ },
+ {
+  "id": "f09",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "It seems to me, he said, that a property right has arisen from this lengthy, long-established relationship.",
+  "subs": [
+   "“It seems to me that a property right has arisen",
+   "from this lengthy, long-established relationship.”"
+  ]
+ },
+ {
+  "id": "f10",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "He ordered U.S. Steel to keep the mills open until the case was heard. And he moved the trial to Youngstown, close enough to Pittsburgh that the company's chairman could be made to testify.",
+  "subs": [
+   "He ordered U.S. Steel to keep the mills open until the case",
+   "was heard. And he moved the trial to Youngstown,",
+   "close enough to Pittsburgh that the company's chairman",
+   "could be made to testify."
+  ]
+ },
+ {
+  "id": "f11",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The trial opened on the seventeenth of March, nineteen eighty. It lasted five days.",
+  "subs": [
+   "The trial opened on 17 March 1980.",
+   "It lasted five days."
+  ]
+ },
+ {
+  "id": "f12",
+  "chapter": "p6",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The workers had made their case. Now, what would the company say for itself?",
+  "subs": [
+   "The workers had made their case.",
+   "Now, what would the company say for itself?"
+  ]
+ },
+ {
+  "id": "g01",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part seven. The defence.",
+  "subs": [
+   "Part seven. The defence."
+  ]
+ },
+ {
+  "id": "g02",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "U.S. Steel's answer was simple. The mills were losing money, and nothing the workers did could change that.",
+  "subs": [
+   "U.S. Steel's answer was simple.",
+   "The mills were losing money,",
+   "and nothing the workers did could change that."
+  ]
+ },
+ {
+  "id": "g03",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The company's president testified that the main cause was obsolescence. The Ohio Works still made its steel in open-hearth furnaces, a method most of the industry was leaving behind.",
+  "subs": [
+   "The company's president testified that the main cause",
+   "was obsolescence. The Ohio Works still made its steel",
+   "in open-hearth furnaces,",
+   "a method most of the industry was leaving behind."
+  ]
+ },
+ {
+  "id": "g04",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Modern mills were moving to basic oxygen furnaces, electric furnaces, and continuous casters. Rebuilding Youngstown that way would cost hundreds of millions of dollars.",
+  "subs": [
+   "Modern mills were moving to basic oxygen furnaces,",
+   "electric furnaces, and continuous casters.",
+   "Rebuilding Youngstown that way",
+   "would cost hundreds of millions of dollars."
+  ]
+ },
+ {
+  "id": "g05",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The chairman, David Roderick, was asked whether the Youngstown Works had been about breaking even in nineteen seventy-nine. The actual number, he said, was about a three-hundred-thousand-dollar loss, for the year to the end of October.",
+  "subs": [
+   "The chairman, David Roderick, was asked whether the Works",
+   "had been about breaking even in 1979.",
+   "“The actual number was about a $300 thousand loss,",
+   "as of the end of October, cumulative for the year.”"
+  ]
+ },
+ {
+  "id": "g06",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The workers pointed to the company's own figures. Count only the day-to-day costs of making steel, and the Youngstown Works came out more than thirty-two million dollars ahead for nineteen eighty.",
+  "subs": [
+   "The workers pointed to the company's own figures.",
+   "Count only the day-to-day costs of making steel, and the Works",
+   "came out more than $32 million ahead for 1980."
+  ]
+ },
+ {
+  "id": "g07",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "But count everything, the equipment wearing out, the selling costs, the overheads, and the company's own projection for nineteen eighty was a loss of nine point four million dollars.",
+  "subs": [
+   "But count everything — the equipment wearing out,",
+   "the selling costs, the overheads —",
+   "and the company's own projection for 1980",
+   "was a loss of $9.4 million."
+  ]
+ },
+ {
+  "id": "g08",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Same mills. Same year. Two honest ways of reading the books.",
+  "subs": [
+   "Same mills. Same year.",
+   "Two honest ways of reading the books."
+  ]
+ },
+ {
+  "id": "g09",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And the promise? Read the hot line again, the company said. Every message tied the future to profit. If and when there will be a phase-out, Kirwan had said, depends on the plant's profitability.",
+  "subs": [
+   "And the promise? Read the hot line again, the company said.",
+   "Every message tied the future to profit.",
+   "“If and when there will be a phase-out",
+   "depends on the plant's profitability.”"
+  ]
+ },
+ {
+  "id": "g10",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Encouragement to a workforce, the company argued, is not a contract. And no law in Ohio or in America said a company could not close its own plant.",
+  "subs": [
+   "Encouragement to a workforce, the company argued,",
+   "is not a contract. And no law in Ohio or in America",
+   "said a company could not close its own plant."
+  ]
+ },
+ {
+  "id": "g11",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The workers had one more hope. Let us buy the mills, they said. Roderick told the court U.S. Steel would not sell to a competitor backed by federal money.",
+  "subs": [
+   "The workers had one more hope. Let us buy the mills, they said.",
+   "Roderick testified U.S. Steel would not sell",
+   "to a competitor backed by federal money."
+  ]
+ },
+ {
+  "id": "g12",
+  "chapter": "p7",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Both sides have spoken. Who's right?",
+  "subs": [
+   "Both sides have spoken.",
+   "Who's right?"
+  ]
+ },
+ {
+  "id": "h11",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part eight. The verdict.",
+  "subs": [
+   "Part eight. The verdict."
+  ]
+ },
+ {
+  "id": "h12",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On the morning of Friday, the twenty-first of March, nineteen eighty, the lawyers gave their closing arguments. Less than two hours later, Judge Lambros read his decision.",
+  "subs": [
+   "On the morning of Friday, 21 March 1980,",
+   "the lawyers gave their closing arguments.",
+   "Less than two hours later, Judge Lambros read his decision."
+  ]
+ },
+ {
+  "id": "h13",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On the promise, he found that the company had never promised to keep the mills open if the workers made them profitable. And that they had not been profitable.",
+  "subs": [
+   "On the promise, he found that the company had never promised",
+   "to keep the mills open if the workers made them profitable.",
+   "And that they had not been profitable."
+  ]
+ },
+ {
+  "id": "h14",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "On the town's right to its mill, he wrote that the mechanism to recognize this new property right is not now in existence in the code of laws of our nation.",
+  "subs": [
+   "On the town's right to its mill, he wrote:",
+   "“The mechanism … to recognize this new property right",
+   "is not now in existence in the code of laws of our nation.”"
+  ]
+ },
+ {
+  "id": "h15",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "This court is not a legislative body, and can not make laws where none exist. This court can determine no legal basis for the finding of a property right.",
+  "subs": [
+   "“This Court is not a legislative body",
+   "and can not make laws where none exist.",
+   "… This Court can determine no legal basis",
+   "for the finding of a property right.”"
+  ]
+ },
+ {
+  "id": "h16",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The workers appealed. In July, the appeals court in Cincinnati agreed with the judge, and wrote why.",
+  "subs": [
+   "The workers appealed. In July, the appeals court in Cincinnati",
+   "agreed with the judge, and wrote why."
+  ]
+ },
+ {
+  "id": "h17",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The former mill towns of New England, with their empty textile factory buildings, are monuments to the migration of textile manufacturers to the South.",
+  "subs": [
+   "“The former mill towns of New England,",
+   "with their empty textile factory buildings, are monuments",
+   "to the migration of textile manufacturers to the South.”"
+  ]
+ },
+ {
+  "id": "h18",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Deciding what should happen when a plant closes, the court said, is the responsibility of the legislatures of the states, or of the Congress of the United States. Not of a judge.",
+  "subs": [
+   "Deciding what should happen when a plant closes, the court said,",
+   "is “the responsibility of the legislatures of the states",
+   "or of the Congress of the United States.” Not of a judge."
+  ]
+ },
+ {
+  "id": "h19",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The fires at the Ohio Works and the McDonald Works went out. In three years, Youngstown had lost about ten thousand steel jobs, and across the valley, tens of thousands more went with them.",
+  "subs": [
+   "The fires at the Ohio Works and the McDonald Works went out.",
+   "In three years, Youngstown had lost about 10,000 steel jobs,",
+   "and across the valley, tens of thousands more went with them."
+  ]
+ },
+ {
+  "id": "h20",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Over the years that followed, the furnaces came down, one after another. Jenny was the last. She was torn down in January nineteen ninety-seven.",
+  "subs": [
+   "Over the years that followed, the furnaces came down,",
+   "one after another. Jenny was the last.",
+   "She was torn down in January 1997."
+  ]
+ },
+ {
+  "id": "h21",
+  "chapter": "p8",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The workers lost their case. But did it change anything?",
+  "subs": [
+   "The workers lost their case.",
+   "But did it change anything?"
+  ]
+ },
+ {
+  "id": "j01",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Part nine. The jury.",
+  "subs": [
+   "Part nine. The jury."
+  ]
+ },
+ {
+  "id": "j02",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Judge Lambros had written that bills about plant closings were already pending on Capitol Hill. It took eight more years.",
+  "subs": [
+   "Judge Lambros had written that bills about plant closings",
+   "were already pending on Capitol Hill.",
+   "It took eight more years."
+  ]
+ },
+ {
+  "id": "j03",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In nineteen eighty-eight, Congress passed the WARN Act. Most large employers must now give sixty days' notice before a plant closing or a mass layoff.",
+  "subs": [
+   "In 1988, Congress passed the WARN Act.",
+   "Most large employers must now give 60 days' notice",
+   "before a plant closing or a mass layoff."
+  ]
+ },
+ {
+  "id": "j04",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Sixty days. On Black Monday, there had been none.",
+  "subs": [
+   "60 days. On Black Monday, there had been none."
+  ]
+ },
+ {
+  "id": "j05",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In nineteen ninety-two, the state opened a steel museum in Youngstown, in a building designed to look like a mill.",
+  "subs": [
+   "In 1992, the state opened a steel museum in Youngstown,",
+   "in a building designed to look like a mill."
+  ]
+ },
+ {
+  "id": "j06",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "In nineteen ninety-five, Bruce Springsteen named a song after the town, and put Jenny in it.",
+  "subs": [
+   "In 1995, Bruce Springsteen named a song after the town,",
+   "and put Jenny in it."
+  ]
+ },
+ {
+  "id": "j07",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And in twenty twelve, a French steel company finished a six-hundred-and-fifty-million-dollar mill for steel pipe in the Brier Hill district, close to where Jenny stood. It was built for about three hundred and fifty jobs.",
+  "subs": [
+   "And in 2012, a French steel company finished a $650 million",
+   "mill for steel pipe in the Brier Hill district,",
+   "close to where Jenny stood.",
+   "It was built for about 350 jobs."
+  ]
+ },
+ {
+  "id": "j08",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Youngstown today is a city of about sixty thousand. Fewer than in nineteen ten.",
+  "subs": [
+   "Youngstown today is a city of about 60,000.",
+   "Fewer than in 1910."
+  ]
+ },
+ {
+  "id": "j09",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "So here is the case. A company that said its mills were losing money, and had every legal right to close them.",
+  "subs": [
+   "So here is the case. A company that said its mills",
+   "were losing money, and had every legal right to close them."
+  ]
+ },
+ {
+  "id": "j10",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "And a town that had given those mills eighty years, and believed that ought to count for something.",
+  "subs": [
+   "And a town that had given those mills eighty years,",
+   "and believed that ought to count for something."
+  ]
+ },
+ {
+  "id": "j11",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "The law gave its answer in nineteen eighty. The question it could not answer is still here.",
+  "subs": [
+   "The law gave its answer in 1980.",
+   "The question it could not answer is still here."
+  ]
+ },
+ {
+  "id": "j12",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Does a town have any right to the mill it built its life around?",
+  "subs": [
+   "Does a town have any right",
+   "to the mill it built its life around?"
+  ]
+ },
+ {
+  "id": "j13",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "You've heard the case. What's your verdict?",
+  "subs": [
+   "You've heard the case. What's your verdict?"
+  ]
+ },
+ {
+  "id": "j14",
+  "chapter": "p9",
+  "voice": "elevenlabs_0dPqNXnhg2bmxQv1WKDp",
+  "text": "Next time on Mill Town: Kenosha, Wisconsin.",
+  "subs": [
+   "Next time on Mill Town: Kenosha, Wisconsin."
+  ]
+ }
+]

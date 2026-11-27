@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Mill Town title sequence</title>
+<style>
+html,body{margin:0;background:#161514;overflow:hidden}canvas{display:block}
+@font-face{font-family:LoraI;src:url(fonts/Lora-Italic.ttf) format('truetype');font-style:italic;font-weight:400 700}
+@font-face{font-family:Mono;src:url(fonts/mono600.woff2) format('woff2');font-weight:600}
+</style></head><body><canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// Mill Town title sequence, 8 s, goes straight after each episode's cold open. Same every week except two lines:
+//   ?town=Rochester, New York&label=KODAK · 1888–2012
+// 0–1 s Ink + light grain (hard cut in) · 1–1.5 logo fades in · 0–8 slow push-in 100 → 104 % (logo and town name)
+// 3–3.5 town name (Lora Italic, Paper) and the top-left label (Plex Mono, Paper) fade in · 6.5–8 everything fades to black.
+// Colours: Ink #161514, Paper #F2EDE3 and the red already in the logo — nothing else. render(t) is deterministic.
+const W = 1920, H = 1080, cv = document.getElementById('c'), x = cv.getContext('2d');
+const INK = '#161514', PAPER = '#F2EDE3';
+const Q = new URLSearchParams(location.search);
+const TOWN = Q.get('town') || 'Rochester, New York', LABEL = Q.get('label') || 'KODAK · 1888–2012';
+const clamp = v => Math.max(0, Math.min(1, v)), seg = (t, a, b) => clamp((t - a) / (b - a)), ease = k => k * k * (3 - 2 * k);
+let LOGO = null; const GRAIN = [];
+function rnd(s) { return () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+function makeGrain() { for (let k = 0; k < 6; k++) { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'), d = g.createImageData(256, 256), R = rnd(100 + k);
+  for (let i = 0; i < d.data.length; i += 4) { const n = 128 + (R() + R() + R() + R() - 2) * 70; d.data[i] = d.data[i + 1] = d.data[i + 2] = n; d.data[i + 3] = 255; } g.putImageData(d, 0, 0); GRAIN.push(g.createPattern(c, 'repeat')); } }
+// layout: the stacked logo and the town name are one centred group
+const LH = 470, GAP = 58, TS = 54;                                   // logo height, logo → town name, town name size
+function render(t) {
+  x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.fillStyle = INK; x.fillRect(0, 0, W, H);
+  const out = 1 - ease(seg(t, 6.5, 8));                              // fade to black at the end
+  const z = 1 + .04 * seg(t, 0, 8);                                  // slow push-in, linear like the photo moves
+  const lw = LH * LOGO.width / LOGO.height, gh = LH + GAP + TS, y0 = (H - gh) / 2 - 10;
+  x.save(); x.translate(W / 2, H / 2); x.scale(z, z); x.translate(-W / 2, -H / 2);
+  const kl = ease(seg(t, 1, 1.5)) * out;
+  if (kl > 0) { x.globalAlpha = kl; x.imageSmoothingQuality = 'high'; x.drawImage(LOGO, (W - lw) / 2, y0, lw, LH); }
+  const kt = ease(seg(t, 3, 3.5)) * out;
+  if (kt > 0) { x.globalAlpha = kt; x.fillStyle = PAPER; x.font = `italic 400 ${TS}px LoraI`; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.fillText(TOWN, W / 2, y0 + LH + GAP + TS * .78); }
+  x.restore();
+  if (kt > 0) { x.globalAlpha = kt * .9; x.fillStyle = PAPER; x.font = '600 26px Mono'; x.textAlign = 'left'; x.textBaseline = 'alphabetic';
+    if ('letterSpacing' in x) x.letterSpacing = '4px'; x.fillText(LABEL, 80, 96); if ('letterSpacing' in x) x.letterSpacing = '0px'; }
+  x.globalAlpha = 1;
+  // light film grain over everything (same grain as the episodes), then the fade to black
+  x.globalCompositeOperation = 'overlay'; x.globalAlpha = .07; x.fillStyle = GRAIN[Math.floor(t * 30) % 6]; x.fillRect(0, 0, W, H);
+  x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1 - out; x.fillStyle = '#000'; x.fillRect(0, 0, W, H); x.globalAlpha = 1;
+}
+window.render = render;
+(async () => {
+  await Promise.all(['italic 400 54px LoraI', '600 26px Mono'].map(f => document.fonts.load(f)));
+  LOGO = await new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = 'brand/MillTown_logo_stacked_for_dark.png'; });
+  makeGrain(); window.DUR = 8; window.READY = true; render(0);
+})();
+</script></body></html>

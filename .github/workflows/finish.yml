@@ -1,0 +1,75 @@
+# Finish the film on GitHub: take the picture-only render from a "Render film" run, add the mastered soundtrack
+# (audio/master/soundtrack.m4a.part*, joined back together), and encode one TV-ready MP4 (H.264 CRF 21, AAC 320k copied).
+# gh workflow run finish.yml -f run_id=<render run id>
+# Patch stretches without re-rendering the whole film: render each changed range with render.yml (start=<a> end=<b>), then
+#   gh workflow run finish.yml -f run_id=<full render run> -f patches="<range run>@<round(a*30)> <range run>@<round(a*30)>"
+# → each range render replaces that many frames of the full render, starting at its frame.
+name: Finish film
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id: { description: 'Run id of the "Render film" run whose youngstown-video artifact to use', required: true }
+      crf: { description: 'x264 quality (lower = bigger file)', default: '21' }
+      patches: { description: 'Optional: space-separated <range render run id>@<start frame>', default: '' }
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  finish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: film }
+      - uses: actions/download-artifact@v4
+        with:
+          name: youngstown-video
+          path: pic
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download patches
+        if: ${{ inputs.patches != '' }}
+        env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: |
+          for p in ${{ inputs.patches }}; do r=${p%@*}; f=${p#*@}
+            gh run download "$r" -R "$GITHUB_REPOSITORY" -n youngstown-video -D "patch_$f"; done
+          ls -l patch_*
+      - name: Join picture and soundtrack, encode
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          cat film/audio/master/soundtrack.m4a.part* > soundtrack.m4a
+          ffprobe -v error -show_entries format=duration -of csv=p=0 soundtrack.m4a
+          ffprobe -v error -show_entries format=duration -of csv=p=0 pic/youngstown-video.mp4
+          python3 - <<'PY' > args.txt
+          import glob, subprocess
+          cnt = lambda f: int(subprocess.run(['ffprobe', '-v', 'error', '-count_packets', '-select_streams', 'v', '-show_entries', 'stream=nb_read_packets', '-of', 'csv=p=0', f], capture_output=True, text=True).stdout.strip().rstrip(','))
+          P = sorted((int(d.split('_')[1]), d + '/youngstown-video.mp4') for d in glob.glob('patch_*'))
+          ins = ['pic/youngstown-video.mp4'] + [f for _, f in P]; olds, labels, pos = [], [], 0
+          for k, (f0, f) in enumerate(P):
+              n = cnt(f); print(f'# patch {f}: frames {f0}..{f0 + n - 1}', flush=True)
+              if f0 > pos: olds.append((pos, f0)); labels.append(f'o{len(olds) - 1}')
+              labels.append(f'p{k}'); pos = f0 + n
+          olds.append((pos, None)); labels.append(f'o{len(olds) - 1}')
+          fc = [f'[0:v]split={len(olds)}' + ''.join(f'[s{i}]' for i in range(len(olds)))]
+          fc += [f'[s{i}]trim=start_frame={a}' + (f':end_frame={b}' if b else '') + f',setpts=PTS-STARTPTS[o{i}]' for i, (a, b) in enumerate(olds)]
+          fc += [f'[{k + 1}:v]setpts=PTS-STARTPTS[p{k}]' for k in range(len(P))]
+          fc.append(''.join(f'[{l}]' for l in labels) + f'concat=n={len(labels)}:v=1:a=0[v]')
+          print('\n'.join(ins)); print(';'.join(fc))
+          PY
+          cat args.txt | tee -a "$GITHUB_STEP_SUMMARY"
+          mapfile -t A < <(grep -v '^#' args.txt); FC="${A[-1]}"; unset 'A[-1]'
+          IN=(); for f in "${A[@]}"; do IN+=(-i "$f"); done; NA=${#A[@]}
+          ffmpeg -v error -stats -y "${IN[@]}" -i soundtrack.m4a -filter_complex "$FC" -map "[v]" -map $NA:a \
+            -c:v libx264 -preset medium -crf ${{ inputs.crf }} -pix_fmt yuv420p -profile:v high -level 4.1 \
+            -color_primaries bt709 -color_trc bt709 -colorspace bt709 \
+            -c:a copy -movflags +faststart -shortest youngstown.mp4
+          ls -l youngstown.mp4 | tee -a "$GITHUB_STEP_SUMMARY"
+          ffprobe -v error -count_packets -select_streams v -show_entries stream=nb_read_packets -show_entries format=duration -of compact youngstown.mp4 | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: youngstown
+          path: youngstown.mp4
+          retention-days: 7
